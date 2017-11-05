@@ -124,12 +124,25 @@ namespace SkiRunRater
         /// </summary>
         public static int[] DisplayGetSkiRunQuery()
         {
-            DisplayReset();
+            
+            bool validValues = false;
             int[] values = new int[2];
-            DisplayMessage("Ski Run Query");
-            DisplayMessage("");
-            values[0] = GetIntegerFromUser("Enter the minimum vertical value (in feet): ");
-            values[1] = GetIntegerFromUser("Enter the maximum vertical value (in feet): ");
+            while (!validValues)
+            {
+                DisplayReset();
+                DisplayMessage("Ski Run Query");
+                DisplayMessage("");
+                values[0] = GetIntegerFromUser("Enter the minimum vertical value (in feet): ");
+                values[1] = GetIntegerFromUser("Enter the maximum vertical value (in feet): ");
+                if (values[0] > values[1])
+                {
+                    DisplayErrorMessage("The minimum value cannot be greater than the maximum value. You will have to select values again.");
+                    DisplayContinuePrompt();
+                    continue;
+                }
+                validValues = true;
+            }
+            
             return values;
         }
 
