@@ -21,3 +21,17 @@ C:\Users\velisj\Google Drive\NMC\Courses\CIT255\CIT255 - Activities\Coding Activ
 C:\Users\velisj\Google Drive\NMC\Courses\CIT255\CIT255 - Activities\Coding Activity - Ski Run Rater\S1\Demo_SkiRunRater\SkiRunRater.Sprint1.Starter\obj\Debug\SkiRunRater.Sprint1.Starter.csproj.CoreCompileInputs.cache
 C:\Users\velisj\Google Drive\NMC\Courses\CIT255\CIT255 - Activities\Coding Activity - Ski Run Rater\S1\Demo_SkiRunRater\SkiRunRater.Sprint1.Starter\obj\Debug\SkiRunRater.Sprint1.Starter.exe
 C:\Users\velisj\Google Drive\NMC\Courses\CIT255\CIT255 - Activities\Coding Activity - Ski Run Rater\S1\Demo_SkiRunRater\SkiRunRater.Sprint1.Starter\obj\Debug\SkiRunRater.Sprint1.Starter.pdb
+C:\Users\Ben\Documents\CIT 255\Projects\SkiRunRater.Sprint1.Starter\SkiRunRater.Sprint1.Starter\bin\Debug\SkiRunRater.Sprint1.Starter.exe.config
+C:\Users\Ben\Documents\CIT 255\Projects\SkiRunRater.Sprint1.Starter\SkiRunRater.Sprint1.Starter\obj\Debug\SkiRunRater.Sprint1.Starter.exe
+C:\Users\Ben\Documents\CIT 255\Projects\SkiRunRater.Sprint1.Starter\SkiRunRater.Sprint1.Starter\obj\Debug\SkiRunRater.Sprint1.Starter.pdb
+C:\Users\Ben\Documents\CIT 255\Projects\SkiRunRater.Sprint1.Starter\SkiRunRater.Sprint1.Starter\obj\Debug\SkiRunRater.Sprint1.Starter.csprojResolveAssemblyReference.cache
+C:\Users\Ben\Documents\CIT 255\Projects\SkiRunRater.Sprint1.Starter\SkiRunRater.Sprint1.Starter\bin\Debug\Data\Data.txt
+C:\Users\Ben\Documents\CIT 255\Projects\SkiRunRater.Sprint1.Starter\SkiRunRater.Sprint1.Starter\bin\Debug\SkiRunRater.Sprint1.Starter.exe
+C:\Users\Ben\Documents\CIT 255\Projects\SkiRunRater.Sprint1.Starter\SkiRunRater.Sprint1.Starter\bin\Debug\SkiRunRater.Sprint1.Starter.pdb
+C:\Users\RCP\Desktop\cit255-ski-run-rater\SkiRunRater.Sprint1.Starter\bin\Debug\Data\Data.txt
+C:\Users\RCP\Desktop\cit255-ski-run-rater\SkiRunRater.Sprint1.Starter\bin\Debug\SkiRunRater.Sprint1.Starter.exe.config
+C:\Users\RCP\Desktop\cit255-ski-run-rater\SkiRunRater.Sprint1.Starter\bin\Debug\SkiRunRater.Sprint1.Starter.exe
+C:\Users\RCP\Desktop\cit255-ski-run-rater\SkiRunRater.Sprint1.Starter\bin\Debug\SkiRunRater.Sprint1.Starter.pdb
+C:\Users\RCP\Desktop\cit255-ski-run-rater\SkiRunRater.Sprint1.Starter\obj\Debug\SkiRunRater.Sprint1.Starter.csprojResolveAssemblyReference.cache
+C:\Users\RCP\Desktop\cit255-ski-run-rater\SkiRunRater.Sprint1.Starter\obj\Debug\SkiRunRater.Sprint1.Starter.exe
+C:\Users\RCP\Desktop\cit255-ski-run-rater\SkiRunRater.Sprint1.Starter\obj\Debug\SkiRunRater.Sprint1.Starter.pdb

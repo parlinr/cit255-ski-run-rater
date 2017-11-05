@@ -52,6 +52,7 @@
     <Compile Include="Utilities\ConsoleUtil.cs" />
     <Compile Include="View\ConsoleView.cs" />
     <Compile Include="View\ViewSettings.cs" />
+    <Compile Include="X-Program.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
