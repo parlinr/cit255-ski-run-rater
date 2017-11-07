@@ -14,7 +14,8 @@ namespace SkiRunRater
         {
             // add test data to the data file
             //InitializeDataFileCSV.AddTestData();
-            InitializeDataFileXML.AddTestData();
+            //InitializeDataFileXML.AddTestData();
+            InitializeDataFileJSON.AddTestData();
 
             // instantiate the controller
             Controller appContoller = new Controller();

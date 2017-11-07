@@ -45,6 +45,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controller\Controller.cs" />
+    <Compile Include="DAL\SkiRunRepositoryJSON.cs" />
     <Compile Include="DAL\SkiRunRepositoryXML.cs" />
     <Compile Include="Data\DataSettings.cs" />
     <Compile Include="Data\InitializeDataFileCSV.cs" />
