@@ -13,6 +13,7 @@ namespace SkiRunRater
 
         public static void AddTestData()
         {
+
             List<SkiRun> skiRuns = new List<SkiRun>();
 
             // initialize the IList of high scores - note: no instantiation for an interface

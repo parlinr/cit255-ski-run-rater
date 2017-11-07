@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 using System.Xml.Serialization;
+using System.Xml;
 
 namespace SkiRunRater
 {

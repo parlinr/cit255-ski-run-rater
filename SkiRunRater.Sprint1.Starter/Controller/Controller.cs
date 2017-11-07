@@ -35,8 +35,8 @@ namespace SkiRunRater
         {
             //Variable Declarations.
             //SkiRunRepositoryCSV skiRunRepository = new SkiRunRepositoryCSV();
-            //SkiRunRepositoryXML skiRunRepository = new SkiRunRepositoryXML();
-            SkiRunRepositoryJSON skiRunRepository = new SkiRunRepositoryJSON();
+            SkiRunRepositoryXML skiRunRepository = new SkiRunRepositoryXML();
+            //SkiRunRepositoryJSON skiRunRepository = new SkiRunRepositoryJSON();
             List<SkiRun> skiRunDetail = new List<SkiRun>();
 
             ConsoleView.DisplayWelcomeScreen();
