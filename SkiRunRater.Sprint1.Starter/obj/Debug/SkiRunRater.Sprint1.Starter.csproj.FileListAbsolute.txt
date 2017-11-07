@@ -43,3 +43,5 @@ C:\Users\parlinr\Desktop\cit255-ski-run-rater\SkiRunRater.Sprint1.Starter\obj\De
 C:\Users\parlinr\Desktop\cit255-ski-run-rater\SkiRunRater.Sprint1.Starter\obj\Debug\SkiRunRater.Sprint1.Starter.csproj.CoreCompileInputs.cache
 C:\Users\parlinr\Desktop\cit255-ski-run-rater\SkiRunRater.Sprint1.Starter\obj\Debug\SkiRunRater.Sprint1.Starter.exe
 C:\Users\parlinr\Desktop\cit255-ski-run-rater\SkiRunRater.Sprint1.Starter\obj\Debug\SkiRunRater.Sprint1.Starter.pdb
+C:\Users\parlinr\Desktop\cit255-ski-run-rater\SkiRunRater.Sprint1.Starter\bin\Debug\Newtonsoft.Json.dll
+C:\Users\parlinr\Desktop\cit255-ski-run-rater\SkiRunRater.Sprint1.Starter\bin\Debug\Newtonsoft.Json.xml
