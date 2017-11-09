@@ -6,10 +6,12 @@ using System.Threading.Tasks;
 
 namespace SkiRunRater
 {
-    public class DataSettings
+    public static class DataSettings
     {
-        //public const string dataFilePath = "Data\\Data.csv"; 
-        public const string dataFilePath = "Data\\Data.xml";
-        //public const string dataFilePath = "Data\\Data.json";
+        public static string dataFilePath = ""; 
+        
+        public const string dataFilePathCSV = "Data\\Data.csv";
+        public const string dataFilePathXML = "Data\\Data.xml";
+        public const string dataFilePathJSON = "Data\\Data.json";
     }
 }

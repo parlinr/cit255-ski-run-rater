@@ -34,9 +34,12 @@ namespace SkiRunRater
         private void ApplicationControl()
         {
             //Variable Declarations.
+            //instantiate the correct repository based on the user's choice
+            //InstantiateRepository();
+            
             //SkiRunRepositoryCSV skiRunRepository = new SkiRunRepositoryCSV();
-            SkiRunRepositoryXML skiRunRepository = new SkiRunRepositoryXML();
-            //SkiRunRepositoryJSON skiRunRepository = new SkiRunRepositoryJSON();
+            //SkiRunRepositoryXML skiRunRepository = new SkiRunRepositoryXML();
+            SkiRunRepositoryJSON skiRunRepository = new SkiRunRepositoryJSON();
             List<SkiRun> skiRunDetail = new List<SkiRun>();
 
             ConsoleView.DisplayWelcomeScreen();
@@ -87,6 +90,25 @@ namespace SkiRunRater
 
             ConsoleView.DisplayExitPrompt();
         }
+
+        /*
+        private static void InstantiateRepository(out SkiRunRepositoryCSV skiRunRepository)
+        {
+            switch (DataSettings.dataFilePath)
+            {
+                //if the user chose CSV
+                case "Data\\Data.csv":
+                    
+                    break;
+                //if the user chose XML
+                case "Data\\Data.xml":
+                    break;
+                //if the user chose JSON
+                case "Data\\Data.json":
+                    break;
+            }
+        }
+        */
 
         /// <summary>
         /// Adds a record to the data source with information provided by the user using the CSV repository
