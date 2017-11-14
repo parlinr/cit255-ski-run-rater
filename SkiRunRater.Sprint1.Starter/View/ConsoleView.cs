@@ -276,6 +276,7 @@ namespace SkiRunRater
                     Console.ReadKey(true);
                     continue;
                 }
+                validResponse = true;
             }
             
             return userResponse;
