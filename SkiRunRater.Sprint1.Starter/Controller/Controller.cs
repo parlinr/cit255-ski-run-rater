@@ -49,7 +49,8 @@ namespace SkiRunRater
 
             ConsoleView.DisplayWelcomeScreen();
 
-            
+            using (repoArray[0])
+            {
                 List<SkiRun> skiRuns = repoArray[0].GetSkiAllRuns();
 
                 while (active)
@@ -90,8 +91,10 @@ namespace SkiRunRater
                             break;
                     }
                 }
-            
-            ConsoleView.DisplayExitPrompt();
+
+                ConsoleView.DisplayExitPrompt();
+            }
+                
         }
 
         private void ApplicationControl(SkiRunRepositoryXML[] repoArray)
@@ -102,49 +105,52 @@ namespace SkiRunRater
 
             ConsoleView.DisplayWelcomeScreen();
 
-
-            List<SkiRun> skiRuns = repoArray[0].GetSkiAllRuns();
-
-            while (active)
+            using (repoArray[0])
             {
-                AppEnum.ManagerAction userActionChoice;
-                SkiRun aSkiRun = new SkiRun();
+                List<SkiRun> skiRuns = repoArray[0].GetSkiAllRuns();
 
-                userActionChoice = ConsoleView.GetUserActionChoice();
-
-                switch (userActionChoice)
+                while (active)
                 {
-                    case AppEnum.ManagerAction.None:
-                        break;
-                    case AppEnum.ManagerAction.ListAllSkiRuns:
-                        //Display all ski runs.
-                        ConsoleView.DisplayAllSkiRuns(skiRuns, true);
-                        ConsoleView.DisplayContinuePrompt();
-                        break;
-                    case AppEnum.ManagerAction.DisplaySkiRunDetail:
-                        DisplaySkiRunDetail(repoArray[0]);
-                        break;
-                    case AppEnum.ManagerAction.DeleteSkiRun:
-                        DeleteSkiRun(repoArray[0], skiRuns);
-                        break;
-                    case AppEnum.ManagerAction.AddSkiRun:
-                        AddSkiRun(repoArray[0]);
-                        break;
-                    case AppEnum.ManagerAction.UpdateSkiRun:
-                        UpdateSkiRun(repoArray[0], skiRuns);
-                        break;
-                    case AppEnum.ManagerAction.QuerySkiRunsByVertical:
-                        QuerySkiRunsByVertical(repoArray[0]);
-                        break;
-                    case AppEnum.ManagerAction.Quit:
-                        active = false;
-                        break;
-                    default:
-                        break;
-                }
-            }
+                    AppEnum.ManagerAction userActionChoice;
+                    SkiRun aSkiRun = new SkiRun();
 
-            ConsoleView.DisplayExitPrompt();
+                    userActionChoice = ConsoleView.GetUserActionChoice();
+
+                    switch (userActionChoice)
+                    {
+                        case AppEnum.ManagerAction.None:
+                            break;
+                        case AppEnum.ManagerAction.ListAllSkiRuns:
+                            //Display all ski runs.
+                            ConsoleView.DisplayAllSkiRuns(skiRuns, true);
+                            ConsoleView.DisplayContinuePrompt();
+                            break;
+                        case AppEnum.ManagerAction.DisplaySkiRunDetail:
+                            DisplaySkiRunDetail(repoArray[0]);
+                            break;
+                        case AppEnum.ManagerAction.DeleteSkiRun:
+                            DeleteSkiRun(repoArray[0], skiRuns);
+                            break;
+                        case AppEnum.ManagerAction.AddSkiRun:
+                            AddSkiRun(repoArray[0]);
+                            break;
+                        case AppEnum.ManagerAction.UpdateSkiRun:
+                            UpdateSkiRun(repoArray[0], skiRuns);
+                            break;
+                        case AppEnum.ManagerAction.QuerySkiRunsByVertical:
+                            QuerySkiRunsByVertical(repoArray[0]);
+                            break;
+                        case AppEnum.ManagerAction.Quit:
+                            active = false;
+                            break;
+                        default:
+                            break;
+                    }
+                }
+
+                ConsoleView.DisplayExitPrompt();
+            }
+                
         }
 
         private void ApplicationControl(SkiRunRepositoryJSON[] repoArray)
@@ -155,49 +161,54 @@ namespace SkiRunRater
 
             ConsoleView.DisplayWelcomeScreen();
 
-
-            List<SkiRun> skiRuns = repoArray[0].GetSkiAllRuns();
-
-            while (active)
+            using (repoArray[0])
             {
-                AppEnum.ManagerAction userActionChoice;
-                SkiRun aSkiRun = new SkiRun();
+                List<SkiRun> skiRuns = repoArray[0].GetSkiAllRuns();
 
-                userActionChoice = ConsoleView.GetUserActionChoice();
-
-                switch (userActionChoice)
+                while (active)
                 {
-                    case AppEnum.ManagerAction.None:
-                        break;
-                    case AppEnum.ManagerAction.ListAllSkiRuns:
-                        //Display all ski runs.
-                        ConsoleView.DisplayAllSkiRuns(skiRuns, true);
-                        ConsoleView.DisplayContinuePrompt();
-                        break;
-                    case AppEnum.ManagerAction.DisplaySkiRunDetail:
-                        DisplaySkiRunDetail(repoArray[0]);
-                        break;
-                    case AppEnum.ManagerAction.DeleteSkiRun:
-                        DeleteSkiRun(repoArray[0], skiRuns);
-                        break;
-                    case AppEnum.ManagerAction.AddSkiRun:
-                        AddSkiRun(repoArray[0]);
-                        break;
-                    case AppEnum.ManagerAction.UpdateSkiRun:
-                        UpdateSkiRun(repoArray[0], skiRuns);
-                        break;
-                    case AppEnum.ManagerAction.QuerySkiRunsByVertical:
-                        QuerySkiRunsByVertical(repoArray[0]);
-                        break;
-                    case AppEnum.ManagerAction.Quit:
-                        active = false;
-                        break;
-                    default:
-                        break;
+                    AppEnum.ManagerAction userActionChoice;
+                    SkiRun aSkiRun = new SkiRun();
+
+                    userActionChoice = ConsoleView.GetUserActionChoice();
+
+                    switch (userActionChoice)
+                    {
+                        case AppEnum.ManagerAction.None:
+                            break;
+                        case AppEnum.ManagerAction.ListAllSkiRuns:
+                            //Display all ski runs.
+                            ConsoleView.DisplayAllSkiRuns(skiRuns, true);
+                            ConsoleView.DisplayContinuePrompt();
+                            break;
+                        case AppEnum.ManagerAction.DisplaySkiRunDetail:
+                            DisplaySkiRunDetail(repoArray[0]);
+                            break;
+                        case AppEnum.ManagerAction.DeleteSkiRun:
+                            DeleteSkiRun(repoArray[0], skiRuns);
+                            break;
+                        case AppEnum.ManagerAction.AddSkiRun:
+                            AddSkiRun(repoArray[0]);
+                            break;
+                        case AppEnum.ManagerAction.UpdateSkiRun:
+                            UpdateSkiRun(repoArray[0], skiRuns);
+                            break;
+                        case AppEnum.ManagerAction.QuerySkiRunsByVertical:
+                            QuerySkiRunsByVertical(repoArray[0]);
+                            break;
+                        case AppEnum.ManagerAction.Quit:
+                            active = false;
+                            break;
+                        default:
+                            break;
+                    }
                 }
+
+                ConsoleView.DisplayExitPrompt();
             }
 
-            ConsoleView.DisplayExitPrompt();
+
+            
         }
 
         
