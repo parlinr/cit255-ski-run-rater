@@ -256,6 +256,35 @@ namespace SkiRunRater
             }
         }
 
+        public static string DisplayChoosePersistence()
+        {
+            string userResponse = "0";
+            bool validResponse = false;
+            while (!validResponse)
+            {
+                DisplayReset();
+                Console.WriteLine("Choose the type of persistence that the application will use:");
+                Console.WriteLine();
+                Console.WriteLine("(1) CSV file");
+                Console.WriteLine("(2) XML file");
+                Console.WriteLine("(3) JSON file");
+                Console.WriteLine();
+                userResponse = Console.ReadLine();
+                if (userResponse != "1" && userResponse != "2" && userResponse != "3")
+                {
+                    DisplayErrorMessage("You did not enter a valid response. Press any key to try again.");
+                    Console.ReadKey(true);
+                    continue;
+                }
+                validResponse = true;
+            }
+            
+            return userResponse;
+            
+
+
+        }
+
         /// <summary>
         /// reset display to default size and colors including the header
         /// </summary>

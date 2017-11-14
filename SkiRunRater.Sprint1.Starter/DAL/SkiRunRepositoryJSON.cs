@@ -1,17 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Data;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
+using Newtonsoft.Json;
+
 
 namespace SkiRunRater
 {
     /// <summary>
     /// method to write all ski run information to the date file
     /// </summary>
-    public class SkiRunRepository : IDisposable
+    public class SkiRunRepositoryJSON : IDisposable
     {
         #region FIELDS
 
@@ -21,7 +22,7 @@ namespace SkiRunRater
 
         #region CONSTRUCTOR
 
-        public SkiRunRepository()
+        public SkiRunRepositoryJSON()
         {
             _skiRuns = ReadSkiRunsData(DataSettings.dataFilePath);
         }
@@ -54,7 +55,7 @@ namespace SkiRunRater
             else
             {
                 //If the ID does not exist...
-                
+
                 //Throw a new exception.
                 throw new ArgumentException($"The ID value of {ID} does not exist.  Please re-ente a new ID.");
             }
@@ -67,7 +68,7 @@ namespace SkiRunRater
         {
             _skiRuns = null;
         }
-        
+
         /// <summary>
         /// method to return a list of ski run objects
         /// </summary>
@@ -110,7 +111,7 @@ namespace SkiRunRater
             }
 
             return skiRunDetail;
-        }       
+        }
 
         /// <summary>
         /// method to add a new ski run
@@ -122,24 +123,24 @@ namespace SkiRunRater
             string skiRunString;
 
             skiRunString = skiRun.ID + "," + skiRun.Name + "," + skiRun.Vertical;
-            
+
             //Check to make sure the ID and Name values have not been taken.
-            if(IsSkiRunIDTaken(skiRun.ID) == true)
+            if (IsSkiRunIDTaken(skiRun.ID) == true)
             {
                 throw new ArgumentException($"The ID value of {skiRun.ID} has already been used for another ski run.  Please re-enter the ski run information with a different ID value.");
                 //return;
             }
-            
+
             if (IsSkiRunNameTaken(skiRun.Name) == true)
             {
                 throw new ArgumentException($"The name {skiRun.Name} has already been used for another ski run.  Please re-enter the ski run information with a different Name.");
             }
 
-            
+
             _skiRuns.Add(skiRun);
 
             WriteSkiRunsData();
-            
+
         }
 
         /// <summary>
@@ -159,7 +160,7 @@ namespace SkiRunRater
                     matchingSkiRuns.Add(run);
                 }
             }
-            
+
             return matchingSkiRuns;
         }
 
@@ -170,34 +171,21 @@ namespace SkiRunRater
         /// <returns>list of SkiRun objects</returns>
         public static List<SkiRun> ReadSkiRunsData(string dataFilePath)
         {
-            const char delineator = ',';
+            string jsonText;
+            List<SkiRun> skiRuns = new List<SkiRun>();
 
-            // create lists to hold the ski run strings and objects
-            List<string> skiRunStringList = new List<string>();
-            List<SkiRun> skiRunClassList = new List<SkiRun>();
-
-            // initialize a StreamReader object for reading
+            //initialize streamreader
             StreamReader sReader = new StreamReader(DataSettings.dataFilePath);
 
+            //read all of the JSON text file into a string
             using (sReader)
             {
-                // keep reading lines of text until the end of the file is reached
-                while (!sReader.EndOfStream)
-                {
-                    skiRunStringList.Add(sReader.ReadLine());
-                }
+                jsonText = sReader.ReadToEnd();
             }
 
-            foreach (string skiRun in skiRunStringList)
-            {
-                // use the Split method and the delineator on the array to separate each property into an array of properties
-                string[] properties = skiRun.Split(delineator);
-
-                // populate the ski run list with SkiRun objects
-                skiRunClassList.Add(new SkiRun() { ID = Convert.ToInt32(properties[0]), Name = properties[1], Vertical = Convert.ToInt32(properties[2]) });
-            }
-
-            return skiRunClassList;
+            //deserialize the json string into a list of ski runs
+            skiRuns = JsonConvert.DeserializeObject<List<SkiRun>>(jsonText);
+            return skiRuns;
         }
 
         /// <summary>
@@ -266,19 +254,15 @@ namespace SkiRunRater
         /// </summary>
         public void WriteSkiRunsData()
         {
-            string skiRunString;
+            //initialize streamwriter
+            StreamWriter sWriter = new StreamWriter(DataSettings.dataFilePath);
 
-            // wrap the FileStream object in a StreamWriter object to simplify writing strings
-            StreamWriter sWriter = new StreamWriter(DataSettings.dataFilePath, false);
+            //generate json string from list of ski runs
+            string jsonText = JsonConvert.SerializeObject(_skiRuns, Formatting.Indented);
 
             using (sWriter)
             {
-                foreach (SkiRun skiRun in _skiRuns)
-                {
-                    skiRunString = skiRun.ID + "," + skiRun.Name + "," + skiRun.Vertical;
-
-                    sWriter.WriteLine(skiRunString);
-                }
+                sWriter.Write(jsonText);
             }
         }
 

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SkiRunRater
 {
-    public class InitializeDataFile
+    public class InitializeDataFileCSV
     {
 
         public static void AddTestData()
