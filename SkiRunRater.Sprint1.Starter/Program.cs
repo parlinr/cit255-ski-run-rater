@@ -44,7 +44,7 @@ namespace SkiRunRater
                         InitializeDataFileXML_DS.AddTestData();
                         
                     }
-                    //xmlArray[0] = new SkiRunRepositoryXML_DS();
+                    
                     break;
                 case "3":
                     DataSettings.dataFilePath = DataSettings.dataFilePathJSON;
