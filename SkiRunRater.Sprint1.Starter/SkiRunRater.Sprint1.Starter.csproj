@@ -47,10 +47,12 @@
     <Compile Include="Controller\Controller.cs" />
     <Compile Include="DAL\SkiRunRepositoryJSON.cs" />
     <Compile Include="DAL\SkiRunRepositoryXML.cs" />
+    <Compile Include="DAL\SkiRunRepositoryXML_DS.cs" />
     <Compile Include="Data\DataSettings.cs" />
     <Compile Include="Data\InitializeDataFileCSV.cs" />
     <Compile Include="Data\InitializeDataFileJSON.cs" />
     <Compile Include="Data\InitializeDataFileXML.cs" />
+    <Compile Include="Data\InitializeDataFileXML_DS.cs" />
     <Compile Include="Models\SkiRun.cs" />
     <Compile Include="Models\AppEnum.cs" />
     <Compile Include="Program.cs" />

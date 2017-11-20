@@ -17,7 +17,7 @@ namespace SkiRunRater
             string userResponse = ConsoleView.DisplayChoosePersistence();
             //array for storing repository objects
             SkiRunRepositoryCSV[] csvArray = new SkiRunRepositoryCSV[1];
-            SkiRunRepositoryXML[] xmlArray = new SkiRunRepositoryXML[1];
+            SkiRunRepositoryXML_DS[] xmlArray = new SkiRunRepositoryXML_DS[1];
             SkiRunRepositoryJSON[] jsonArray = new SkiRunRepositoryJSON[1];
             //instantiate the correct classes based on the user's choice
             switch (userResponse)
@@ -41,10 +41,10 @@ namespace SkiRunRater
                     // and instantiate the right repository
                     if (length == 0)
                     {
-                        InitializeDataFileXML.AddTestData();
+                        InitializeDataFileXML_DS.AddTestData();
                         
                     }
-                    xmlArray[0] = new SkiRunRepositoryXML();
+                    //xmlArray[0] = new SkiRunRepositoryXML_DS();
                     break;
                 case "3":
                     DataSettings.dataFilePath = DataSettings.dataFilePathJSON;
