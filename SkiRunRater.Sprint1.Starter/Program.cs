@@ -32,7 +32,7 @@ namespace SkiRunRater
                         InitializeDataFileCSV.AddTestData();
                         
                     }
-                    csvArray[0] = new SkiRunRepositoryCSV();
+                    
                     break;
                 case "2":
                     DataSettings.dataFilePath = DataSettings.dataFilePathXML;
@@ -56,7 +56,7 @@ namespace SkiRunRater
                         InitializeDataFileJSON.AddTestData();
                         
                     }
-                    jsonArray[0] = new SkiRunRepositoryJSON();
+                    
                     break;
                 default:
                     break;

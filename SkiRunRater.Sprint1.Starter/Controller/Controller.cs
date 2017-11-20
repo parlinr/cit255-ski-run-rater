@@ -46,13 +46,11 @@ namespace SkiRunRater
         {
             //Variable Declarations.
                                     
-            List<SkiRun> skiRunDetail = new List<SkiRun>();
+            
 
             ConsoleView.DisplayWelcomeScreen();
 
-            using (repoArray[0])
-            {
-                List<SkiRun> skiRuns = repoArray[0].GetSkiAllRuns();
+                          
 
                 while (active)
                 {
@@ -66,24 +64,23 @@ namespace SkiRunRater
                         case AppEnum.ManagerAction.None:
                             break;
                         case AppEnum.ManagerAction.ListAllSkiRuns:
-                            //Display all ski runs.
-                            ConsoleView.DisplayAllSkiRuns(skiRuns, true);
-                            ConsoleView.DisplayContinuePrompt();
+                        //Display all ski runs.
+                            ListAllSkiRuns(repoArray);
                             break;
                         case AppEnum.ManagerAction.DisplaySkiRunDetail:
-                            DisplaySkiRunDetail(repoArray[0]);
+                            DisplaySkiRunDetail(repoArray);
                             break;
                         case AppEnum.ManagerAction.DeleteSkiRun:
-                            DeleteSkiRun(repoArray[0], skiRuns);
+                            DeleteSkiRun(repoArray);
                             break;
                         case AppEnum.ManagerAction.AddSkiRun:
-                            AddSkiRun(repoArray[0]);
+                            AddSkiRun(repoArray);
                             break;
                         case AppEnum.ManagerAction.UpdateSkiRun:
-                            UpdateSkiRun(repoArray[0], skiRuns);
+                            UpdateSkiRun(repoArray);
                             break;
                         case AppEnum.ManagerAction.QuerySkiRunsByVertical:
-                            QuerySkiRunsByVertical(repoArray[0]);
+                            QuerySkiRunsByVertical(repoArray);
                             break;
                         case AppEnum.ManagerAction.Quit:
                             active = false;
@@ -94,7 +91,7 @@ namespace SkiRunRater
                 }
 
                 ConsoleView.DisplayExitPrompt();
-            }
+            
                 
         }
 
@@ -104,8 +101,7 @@ namespace SkiRunRater
         {
             //Variable Declarations.
 
-            List<SkiRun> skiRunDetail = new List<SkiRun>();
-
+            
             ConsoleView.DisplayWelcomeScreen();
 
             
@@ -162,18 +158,32 @@ namespace SkiRunRater
             ConsoleView.DisplayContinuePrompt();
         }
 
+        private void ListAllSkiRuns(SkiRunRepositoryCSV[] repoArray)
+        {
+            SkiRunRepositoryCSV skiRunRepository = new SkiRunRepositoryCSV();
+            List<SkiRun> skiRuns = skiRunRepository.GetSkiAllRuns();
+            ConsoleView.DisplayAllSkiRuns(skiRuns, true);
+            ConsoleView.DisplayContinuePrompt();
+        }
+
+        private void ListAllSkiRuns(SkiRunRepositoryJSON[] repoArray)
+        {
+            SkiRunRepositoryJSON skiRunRepository = new SkiRunRepositoryJSON();
+            List<SkiRun> skiRuns = skiRunRepository.GetSkiAllRuns();
+            ConsoleView.DisplayAllSkiRuns(skiRuns, true);
+            ConsoleView.DisplayContinuePrompt();
+        }
+
         private void ApplicationControl(SkiRunRepositoryJSON[] repoArray)
         {
             //Variable Declarations.
 
-            List<SkiRun> skiRunDetail = new List<SkiRun>();
+            
 
             ConsoleView.DisplayWelcomeScreen();
 
-            using (repoArray[0])
-            {
-                List<SkiRun> skiRuns = repoArray[0].GetSkiAllRuns();
-
+            
+                
                 while (active)
                 {
                     AppEnum.ManagerAction userActionChoice;
@@ -186,24 +196,24 @@ namespace SkiRunRater
                         case AppEnum.ManagerAction.None:
                             break;
                         case AppEnum.ManagerAction.ListAllSkiRuns:
-                            //Display all ski runs.
-                            ConsoleView.DisplayAllSkiRuns(skiRuns, true);
-                            ConsoleView.DisplayContinuePrompt();
+                        //Display all ski runs.
+                            ListAllSkiRuns(repoArray);
+                            
                             break;
                         case AppEnum.ManagerAction.DisplaySkiRunDetail:
-                            DisplaySkiRunDetail(repoArray[0]);
+                            DisplaySkiRunDetail(repoArray);
                             break;
                         case AppEnum.ManagerAction.DeleteSkiRun:
-                            DeleteSkiRun(repoArray[0], skiRuns);
+                            DeleteSkiRun(repoArray);
                             break;
                         case AppEnum.ManagerAction.AddSkiRun:
-                            AddSkiRun(repoArray[0]);
+                            AddSkiRun(repoArray);
                             break;
                         case AppEnum.ManagerAction.UpdateSkiRun:
-                            UpdateSkiRun(repoArray[0], skiRuns);
+                            UpdateSkiRun(repoArray);
                             break;
                         case AppEnum.ManagerAction.QuerySkiRunsByVertical:
-                            QuerySkiRunsByVertical(repoArray[0]);
+                            QuerySkiRunsByVertical(repoArray);
                             break;
                         case AppEnum.ManagerAction.Quit:
                             active = false;
@@ -211,13 +221,13 @@ namespace SkiRunRater
                         default:
                             break;
                     }
-                }
+                
 
-                ConsoleView.DisplayExitPrompt();
+                
             }
+            ConsoleView.DisplayExitPrompt();
 
 
-            
         }
 
         
@@ -225,8 +235,9 @@ namespace SkiRunRater
         /// Adds a record to the data source with information provided by the user using the CSV repository
         /// </summary>
         /// <param name="skiRunRepository"></param>
-        private static void AddSkiRun(SkiRunRepositoryCSV skiRunRepository)
+        private static void AddSkiRun(SkiRunRepositoryCSV[] repoArray)
         {
+            SkiRunRepositoryCSV skiRunRepository = new SkiRunRepositoryCSV();
             //Variable Declarations.
             SkiRun aSkiRun = new SkiRun();
 
@@ -296,8 +307,9 @@ namespace SkiRunRater
         /// Adds a record to the data source with information provided by the user using the JSON repository
         /// </summary>
         /// <param name="skiRunRepository"></param>
-        private static void AddSkiRun(SkiRunRepositoryJSON skiRunRepository)
+        private static void AddSkiRun(SkiRunRepositoryJSON[] repoArray)
         {
+            SkiRunRepositoryJSON skiRunRepository = new SkiRunRepositoryJSON();
             //Variable Declarations.
             SkiRun aSkiRun = new SkiRun();
 
@@ -380,8 +392,10 @@ namespace SkiRunRater
         /// </summary>
         /// <param name="skiRunRepository"></param>
         /// <param name="skiRuns"></param>
-        private static void DeleteSkiRun(SkiRunRepositoryCSV skiRunRepository, List<SkiRun> skiRuns)
+        private static void DeleteSkiRun(SkiRunRepositoryCSV[] repoArray)
         {
+            SkiRunRepositoryCSV skiRunRepository = new SkiRunRepositoryCSV();
+            List<SkiRun> skiRuns = skiRunRepository.GetSkiAllRuns();
             //Variable declarations.
             int skiRunID = 0;
 
@@ -460,8 +474,10 @@ namespace SkiRunRater
         /// </summary>
         /// <param name="skiRunRepository"></param>
         /// <param name="skiRuns"></param>
-        private static void DeleteSkiRun(SkiRunRepositoryJSON skiRunRepository, List<SkiRun> skiRuns)
+        private static void DeleteSkiRun(SkiRunRepositoryJSON[] repoArray)
         {
+            SkiRunRepositoryJSON skiRunRepository = new SkiRunRepositoryJSON();
+            List<SkiRun> skiRuns = skiRunRepository.GetSkiAllRuns();
             //Variable declarations.
             int skiRunID = 0;
 
@@ -497,8 +513,10 @@ namespace SkiRunRater
         /// Displays a list of all ski runs using the CSV repository.
         /// </summary>
         /// <param name="skiRunRepository"></param>
-        private static void DisplaySkiRunDetail(SkiRunRepositoryCSV skiRunRepository)
+        private static void DisplaySkiRunDetail(SkiRunRepositoryCSV[] repoArray)
         {
+            SkiRunRepositoryCSV skiRunRepository = new SkiRunRepositoryCSV();
+
             ConsoleView.DisplayReset();
             //ConsoleView.DisplayHeader("Display Ski Run Information");
 
@@ -540,8 +558,9 @@ namespace SkiRunRater
         /// Displays a list of all ski runs using the JSON repository.
         /// </summary>
         /// <param name="skiRunRepository"></param>
-        private static void DisplaySkiRunDetail(SkiRunRepositoryJSON skiRunRepository)
+        private static void DisplaySkiRunDetail(SkiRunRepositoryJSON[] repoArray)
         {
+            SkiRunRepositoryJSON skiRunRepository = new SkiRunRepositoryJSON();
             ConsoleView.DisplayReset();
             //ConsoleView.DisplayHeader("Display Ski Run Information");
 
@@ -562,8 +581,9 @@ namespace SkiRunRater
         /// Allows the user to select a list of ski runs based on the vertical value for the CSV repository.
         /// </summary>
         /// <param name="skiRunRepository"></param>
-        private static void QuerySkiRunsByVertical(SkiRunRepositoryCSV skiRunRepository)
+        private static void QuerySkiRunsByVertical(SkiRunRepositoryCSV[] repoArray)
         {
+            SkiRunRepositoryCSV skiRunRepository = new SkiRunRepositoryCSV();
             int[] minMaxValues = ConsoleView.DisplayGetSkiRunQuery();
             List<SkiRun> results = skiRunRepository.QueryByVertical(minMaxValues[0], minMaxValues[1]);
             ConsoleView.DisplayQueryResults(results);
@@ -589,8 +609,9 @@ namespace SkiRunRater
         /// Allows the user to select a list of ski runs based on the vertical value for the JSON repository.
         /// </summary>
         /// <param name="skiRunRepository"></param>
-        private static void QuerySkiRunsByVertical(SkiRunRepositoryJSON skiRunRepository)
+        private static void QuerySkiRunsByVertical(SkiRunRepositoryJSON[] repoArray)
         {
+            SkiRunRepositoryJSON skiRunRepository = new SkiRunRepositoryJSON();
             int[] minMaxValues = ConsoleView.DisplayGetSkiRunQuery();
             List<SkiRun> results = skiRunRepository.QueryByVertical(minMaxValues[0], minMaxValues[1]);
             ConsoleView.DisplayQueryResults(results);
@@ -602,8 +623,10 @@ namespace SkiRunRater
         /// </summary>
         /// <param name="skiRunRepository"></param>
         /// <param name="skiRuns"></param>
-        private static void UpdateSkiRun(SkiRunRepositoryCSV skiRunRepository, List<SkiRun> skiRuns)
+        private static void UpdateSkiRun(SkiRunRepositoryCSV[] repoArray)
         {
+            SkiRunRepositoryCSV skiRunRepository = new SkiRunRepositoryCSV();
+            List<SkiRun> skiRuns = skiRunRepository.GetSkiAllRuns();
             //Variable Declarations.
             SkiRun aSkiRun = new SkiRun();
 
@@ -719,8 +742,10 @@ namespace SkiRunRater
         /// </summary>
         /// <param name="skiRunRepository"></param>
         /// <param name="skiRuns"></param>
-        private static void UpdateSkiRun(SkiRunRepositoryJSON skiRunRepository, List<SkiRun> skiRuns)
+        private static void UpdateSkiRun(SkiRunRepositoryJSON[] repoArray)
         {
+            SkiRunRepositoryJSON skiRunRepository = new SkiRunRepositoryJSON();
+            List<SkiRun> skiRuns = skiRunRepository.GetSkiAllRuns();
             //Variable Declarations.
             SkiRun aSkiRun = new SkiRun();
 
