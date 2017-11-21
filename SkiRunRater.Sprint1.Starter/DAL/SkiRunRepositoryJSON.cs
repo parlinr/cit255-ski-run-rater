@@ -12,7 +12,7 @@ namespace SkiRunRater
     /// <summary>
     /// method to write all ski run information to the date file
     /// </summary>
-    public class SkiRunRepositoryJSON : IDisposable
+    public class SkiRunRepositoryJSON : IDisposable, ISkiRunRepository
     {
         #region FIELDS
 
@@ -35,7 +35,7 @@ namespace SkiRunRater
         /// method to delete a ski run by ski run ID
         /// </summary>
         /// <param name="ID"></param>
-        public void DeleteSkiRun(int ID)
+        public void Delete(int ID)
         {
             if (IsSkiRunIDTaken(ID) == true)
             {
@@ -50,7 +50,7 @@ namespace SkiRunRater
                     }
                 }
 
-                WriteSkiRunsData();
+                Save();
             }
             else
             {
@@ -73,7 +73,7 @@ namespace SkiRunRater
         /// method to return a list of ski run objects
         /// </summary>
         /// <returns>list of ski run objects</returns>
-        public List<SkiRun> GetSkiAllRuns()
+        public List<SkiRun> SelectAll()
         {
             return _skiRuns;
         }
@@ -83,7 +83,7 @@ namespace SkiRunRater
         /// </summary>
         /// <param name="ID">int ID</param>
         /// <returns>ski run object</returns>
-        public SkiRun GetSkiRunByID(int ID)
+        public SkiRun SelectById(int ID)
         {
             //Variable Declarations.
             SkiRun skiRunDetail = null;
@@ -117,7 +117,7 @@ namespace SkiRunRater
         /// method to add a new ski run
         /// </summary>
         /// <param name="skiRun"></param>
-        public void InsertSkiRun(SkiRun skiRun)
+        public void Insert(SkiRun skiRun)
         {
             //Variale Declarations.
             string skiRunString;
@@ -139,30 +139,11 @@ namespace SkiRunRater
 
             _skiRuns.Add(skiRun);
 
-            WriteSkiRunsData();
+            Save();
 
         }
 
-        /// <summary>
-        /// method to query the data by the vertical of each ski run in feet
-        /// </summary>
-        /// <param name="minimumVertical">int minimum vertical</param>
-        /// <param name="maximumVertical">int maximum vertical</param>
-        /// <returns></returns>
-        public List<SkiRun> QueryByVertical(int minimumVertical, int maximumVertical)
-        {
-            List<SkiRun> skiRuns = ReadSkiRunsData(DataSettings.dataFilePath);
-            List<SkiRun> matchingSkiRuns = new List<SkiRun>();
-            foreach (SkiRun run in skiRuns)
-            {
-                if (run.Vertical >= minimumVertical && run.Vertical <= maximumVertical)
-                {
-                    matchingSkiRuns.Add(run);
-                }
-            }
-
-            return matchingSkiRuns;
-        }
+        
 
         /// <summary>
         /// method to read all ski run information from the data file and return it as a list of SkiRun objects
@@ -192,7 +173,7 @@ namespace SkiRunRater
         /// method to update an existing ski run
         /// </summary>
         /// <param name="skiRun">ski run object</param>
-        public void UpdateSkiRun(SkiRun skiRun)
+        public void Update(SkiRun skiRun)
         {
             foreach (SkiRun skiRunToUpdate in _skiRuns)
             {
@@ -203,7 +184,7 @@ namespace SkiRunRater
                     break;
                 }
 
-                WriteSkiRunsData();
+                Save();
             }
         }
 
@@ -252,7 +233,7 @@ namespace SkiRunRater
         /// <summary>
         /// method to write all of the list of ski runs to the text file
         /// </summary>
-        public void WriteSkiRunsData()
+        public void Save()
         {
             //initialize streamwriter
             StreamWriter sWriter = new StreamWriter(DataSettings.dataFilePath);

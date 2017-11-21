@@ -11,7 +11,7 @@ namespace SkiRunRater
             /// <summary>
         /// method to write all ski run information to the date file
         /// </summary>
-        public class SkiRunRepositoryXML_DS : IDisposable
+        public class SkiRunRepositoryXML_DS : IDisposable, ISkiRunRepository
         {
             DataSet _skiRuns_ds = new DataSet();
             DataTable _skiRuns_dt = new DataTable();
@@ -46,7 +46,7 @@ namespace SkiRunRater
             /// <summary>
             /// write the dataset to the xml file
             /// </summary>
-            public void WriteSkiRunsData()
+            public void Save()
             {
                 // create a XmlWriterSettings object to set the writing method
                 XmlWriterSettings settings = new XmlWriterSettings();
@@ -67,7 +67,7 @@ namespace SkiRunRater
             /// method to return a list of ski run objects
             /// </summary>
             /// <returns>list of ski run objects</returns>
-            public List<SkiRun> SelectAllRuns()
+            public List<SkiRun> SelectAll()
             {
                 List<SkiRun> skiRuns = new List<SkiRun>();
 
@@ -89,7 +89,7 @@ namespace SkiRunRater
             /// </summary>
             /// <param name="ID">int ID</param>
             /// <returns>ski run object</returns>
-            public SkiRun SelectByID(int ID)
+            public SkiRun SelectById(int ID)
             {
                 SkiRun skiRun = new SkiRun();
                 DataRow[] skiRuns;
@@ -122,18 +122,18 @@ namespace SkiRunRater
             /// method to add a new ski run
             /// </summary>
             /// <param name="skiRun"></param>
-            public void InsertSkiRun(SkiRun skiRun)
+            public void Insert(SkiRun skiRun)
             {
                 fillRow(_skiRuns_dt, skiRun.ID, skiRun.Name, skiRun.Vertical);
 
-                WriteSkiRunsData();
+                Save();
             }
 
             /// <summary>
             /// method to delete a ski run by ski run ID
             /// </summary>
             /// <param name="ID"></param>
-            public void DeleteSkiRun(int ID)
+            public void Delete(int ID)
             {
                 DataRow[] skiRuns;
 
@@ -156,14 +156,14 @@ namespace SkiRunRater
                     _skiRuns_dt.Rows.Remove(skiRuns[0]);
                 }
 
-                WriteSkiRunsData();
+                Save();
             }
 
             /// <summary>
             /// method to update an existing ski run
             /// </summary>
             /// <param name="skiRun">ski run object</param>
-            public void UpdateSkiRun(SkiRun skiRun)
+            public void Update(SkiRun skiRun)
             {
                 DataRow[] skiRuns;
                 int ID = skiRun.ID;
@@ -189,41 +189,7 @@ namespace SkiRunRater
                     skiRuns[0]["Vertical"] = skiRun.Vertical;
                 }
 
-                WriteSkiRunsData();
-            }
-
-            /// <summary>
-            /// method to query the data by the vertical of each ski run in feet
-            /// </summary>
-            /// <param name="minimumVertical">int minimum vertical</param>
-            /// <param name="maximumVertical">int maximum vertical</param>
-            /// <returns></returns>
-            public List<SkiRun> QueryByVertical(int minimumVertical, int maximumVertical)
-            {
-                // create a list to hold the matching ski runs
-                List<SkiRun> matchingSkiRuns = new List<SkiRun>();
-
-                // create an array of DataRows to hold the matching ski runs
-                DataRow[] skiRuns;
-
-                // generate the a query string based on the values of the arguements sent
-                string queryString = String.Format("Vertical > {0} AND Vertical < {1}", minimumVertical, maximumVertical);
-
-                // use the Select method to fill the array of ski runs
-                skiRuns = _skiRuns_dt.Select(queryString);
-
-                // for each row in the array, create a new SkiRun object and add it to the list
-                foreach (DataRow skiRun in skiRuns)
-                {
-                    matchingSkiRuns.Add(new SkiRun()
-                    {
-                        ID = int.Parse(skiRun["ID"].ToString()),
-                        Name = skiRun["Name"].ToString(),
-                        Vertical = int.Parse(skiRun["Vertical"].ToString()),
-                    });
-                }
-
-                return matchingSkiRuns;
+                Save();
             }
 
             /// <summary>

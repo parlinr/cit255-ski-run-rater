@@ -12,6 +12,7 @@ namespace SkiRunRater
         #region FIELDS
 
         bool active = true;
+        static ISkiRunRepository skiRunRepository;
 
         #endregion
 
@@ -21,28 +22,31 @@ namespace SkiRunRater
         #endregion
 
         #region CONSTRUCTORS
-        //need to overload the constructor based on the user's choice of persistence
-        public Controller(SkiRunRepositoryCSV[] repoArray)
+        
+        public Controller()
         {
-            ApplicationControl(repoArray);
-        }
-
-        public Controller(SkiRunRepositoryJSON[] repoArray)
-        {
-            ApplicationControl(repoArray);
-        }
-
-        public Controller(SkiRunRepositoryXML_DS[] repoArray)
-        {
-            ApplicationControl(repoArray);
+            if (DataSettings.dataFilePath == "Data\\Data.csv")
+            {
+                skiRunRepository = new SkiRunRepositoryCSV();
+            }
+            else if (DataSettings.dataFilePath == "Data\\Data.xml")
+            {
+                skiRunRepository = new SkiRunRepositoryXML_DS();
+            }
+            else
+            {
+                skiRunRepository = new SkiRunRepositoryJSON();
+            }
+            
+            ApplicationControl();
         }
 
 
         #endregion
 
         #region METHODS
-        //also need to overload the ApplicationControl method to account for the user choice
-        private void ApplicationControl(SkiRunRepositoryCSV[] repoArray)
+        
+        private void ApplicationControl()
         {
             //Variable Declarations.
                                     
@@ -65,22 +69,22 @@ namespace SkiRunRater
                             break;
                         case AppEnum.ManagerAction.ListAllSkiRuns:
                         //Display all ski runs.
-                            ListAllSkiRuns(repoArray);
+                            ListAllSkiRuns();
                             break;
                         case AppEnum.ManagerAction.DisplaySkiRunDetail:
-                            DisplaySkiRunDetail(repoArray);
+                            DisplaySkiRunDetail();
                             break;
                         case AppEnum.ManagerAction.DeleteSkiRun:
-                            DeleteSkiRun(repoArray);
+                            DeleteSkiRun();
                             break;
                         case AppEnum.ManagerAction.AddSkiRun:
-                            AddSkiRun(repoArray);
+                            AddSkiRun();
                             break;
                         case AppEnum.ManagerAction.UpdateSkiRun:
-                            UpdateSkiRun(repoArray);
+                            UpdateSkiRun();
                             break;
                         case AppEnum.ManagerAction.QuerySkiRunsByVertical:
-                            QuerySkiRunsByVertical(repoArray);
+                            QuerySkiRunsByVertical();
                             break;
                         case AppEnum.ManagerAction.Quit:
                             active = false;
@@ -97,159 +101,30 @@ namespace SkiRunRater
 
         
 
-        private void ApplicationControl(SkiRunRepositoryXML_DS[] repoArray)
+        
+        private void ListAllSkiRuns()
         {
-            //Variable Declarations.
-
-            
-            ConsoleView.DisplayWelcomeScreen();
-
-            
-                //List<SkiRun> skiRuns = repoArray[0].SelectAllRuns();
-
-                while (active)
-                {
-                    AppEnum.ManagerAction userActionChoice;
-                    SkiRun aSkiRun = new SkiRun();
-
-                    userActionChoice = ConsoleView.GetUserActionChoice();
-
-                    switch (userActionChoice)
-                    {
-                        case AppEnum.ManagerAction.None:
-                            break;
-                        case AppEnum.ManagerAction.ListAllSkiRuns:
-                            //Display all ski runs.
-                            ListAllSkiRuns(repoArray);
-                            break;
-                        case AppEnum.ManagerAction.DisplaySkiRunDetail:
-                            DisplaySkiRunDetail(repoArray);
-                            break;
-                        case AppEnum.ManagerAction.DeleteSkiRun:
-                            DeleteSkiRun(repoArray);
-                            break;
-                        case AppEnum.ManagerAction.AddSkiRun:
-                            AddSkiRun(repoArray);
-                            break;
-                        case AppEnum.ManagerAction.UpdateSkiRun:
-                            UpdateSkiRun(repoArray);
-                            break;
-                        case AppEnum.ManagerAction.QuerySkiRunsByVertical:
-                            QuerySkiRunsByVertical(repoArray);
-                            break;
-                        case AppEnum.ManagerAction.Quit:
-                            active = false;
-                            break;
-                        default:
-                            break;
-                    
-                }
-
-                
-            }
-            ConsoleView.DisplayExitPrompt();
-        }
-
-        private void ListAllSkiRuns(SkiRunRepositoryXML_DS[] repoArray)
-        {
-            SkiRunRepositoryXML_DS skiRunRepository = new SkiRunRepositoryXML_DS();
-            using (skiRunRepository)
+            SkiRunBusiness skiRunBusiness = new SkiRunBusiness(skiRunRepository);
+            using (skiRunBusiness)
             {
-                List<SkiRun> skiRuns = repoArray[0].SelectAllRuns();
+                List<SkiRun> skiRuns = skiRunRepository.SelectAll();
                 ConsoleView.DisplayAllSkiRuns(skiRuns, true);
             }
                 
             ConsoleView.DisplayContinuePrompt();
         }
 
-        private void ListAllSkiRuns(SkiRunRepositoryCSV[] repoArray)
-        {
-            SkiRunRepositoryCSV skiRunRepository = new SkiRunRepositoryCSV();
-            using (skiRunRepository)
-            {
-                List<SkiRun> skiRuns = skiRunRepository.GetSkiAllRuns();
-                ConsoleView.DisplayAllSkiRuns(skiRuns, true);
-            }
-                
-            ConsoleView.DisplayContinuePrompt();
-        }
-
-        private void ListAllSkiRuns(SkiRunRepositoryJSON[] repoArray)
-        {
-            SkiRunRepositoryJSON skiRunRepository = new SkiRunRepositoryJSON();
-            using (skiRunRepository)
-            {
-                List<SkiRun> skiRuns = skiRunRepository.GetSkiAllRuns();
-                ConsoleView.DisplayAllSkiRuns(skiRuns, true);
-            }
-                
-            ConsoleView.DisplayContinuePrompt();
-        }
-
-        private void ApplicationControl(SkiRunRepositoryJSON[] repoArray)
-        {
-            //Variable Declarations.
-
-            
-
-            ConsoleView.DisplayWelcomeScreen();
-
-            
-                
-                while (active)
-                {
-                    AppEnum.ManagerAction userActionChoice;
-                    SkiRun aSkiRun = new SkiRun();
-
-                    userActionChoice = ConsoleView.GetUserActionChoice();
-
-                    switch (userActionChoice)
-                    {
-                        case AppEnum.ManagerAction.None:
-                            break;
-                        case AppEnum.ManagerAction.ListAllSkiRuns:
-                        //Display all ski runs.
-                            ListAllSkiRuns(repoArray);
-                            
-                            break;
-                        case AppEnum.ManagerAction.DisplaySkiRunDetail:
-                            DisplaySkiRunDetail(repoArray);
-                            break;
-                        case AppEnum.ManagerAction.DeleteSkiRun:
-                            DeleteSkiRun(repoArray);
-                            break;
-                        case AppEnum.ManagerAction.AddSkiRun:
-                            AddSkiRun(repoArray);
-                            break;
-                        case AppEnum.ManagerAction.UpdateSkiRun:
-                            UpdateSkiRun(repoArray);
-                            break;
-                        case AppEnum.ManagerAction.QuerySkiRunsByVertical:
-                            QuerySkiRunsByVertical(repoArray);
-                            break;
-                        case AppEnum.ManagerAction.Quit:
-                            active = false;
-                            break;
-                        default:
-                            break;
-                    }
-                
-
-                
-            }
-            ConsoleView.DisplayExitPrompt();
-
-
-        }
+       
+           
 
         
         /// <summary>
-        /// Adds a record to the data source with information provided by the user using the CSV repository
+        /// Adds a record to the data source with information provided by the user 
         /// </summary>
         /// <param name="skiRunRepository"></param>
-        private static void AddSkiRun(SkiRunRepositoryCSV[] repoArray)
+        private static void AddSkiRun()
         {
-            SkiRunRepositoryCSV skiRunRepository = new SkiRunRepositoryCSV();
+            SkiRunBusiness skiRunBusiness = new SkiRunBusiness(skiRunRepository);
             //Variable Declarations.
             SkiRun aSkiRun = new SkiRun();
 
@@ -259,51 +134,13 @@ namespace SkiRunRater
             aSkiRun.ID = ConsoleView.GetIntegerFromUser("Enter the ID for the Ski Run: ");
             aSkiRun.Name = ConsoleView.GetUserResponse("Enter the name for the Ski Run: ");
             aSkiRun.Vertical = ConsoleView.GetIntegerFromUser("Enter the vertical (in feet) for the Ski Run: ");
-            using (skiRunRepository)
+            using (skiRunBusiness)
             {
                 //Insert the new ski run.
                 try
                 {
                     //Insert the new record.
-                    skiRunRepository.InsertSkiRun(aSkiRun);
-
-                    //Display a message to the user that the record was inserted.
-                    ConsoleView.DisplayReset();
-                    ConsoleView.DisplayMessage($"The information for the {aSkiRun.Name} ski run has been saved.");
-                    ConsoleView.DisplayContinuePrompt();
-                }
-                catch (Exception ex)
-                {
-                    //Display the error message for the error that occurred.
-                    CatchIOExceptions(ex);
-                }
-            }
-                
-        }
-
-        /// <summary>
-        /// Adds a record to the data source with information provided by the user using the XML_DS repository
-        /// </summary>
-        /// <param name="skiRunRepository"></param>
-        private static void AddSkiRun(SkiRunRepositoryXML_DS[] repoArray)
-        {
-            SkiRunRepositoryXML_DS skiRunRepository = new SkiRunRepositoryXML_DS();
-            //Variable Declarations.
-            SkiRun aSkiRun = new SkiRun();
-
-            ConsoleView.DisplayReset();
-
-            //Get the ID, Name, and Vertical feet from the user.
-            aSkiRun.ID = ConsoleView.GetIntegerFromUser("Enter the ID for the Ski Run: ");
-            aSkiRun.Name = ConsoleView.GetUserResponse("Enter the name for the Ski Run: ");
-            aSkiRun.Vertical = ConsoleView.GetIntegerFromUser("Enter the vertical (in feet) for the Ski Run: ");
-            using (skiRunRepository)
-            {
-                //Insert the new ski run.
-                try
-                {
-                    //Insert the new record.
-                    skiRunRepository.InsertSkiRun(aSkiRun);
+                    skiRunRepository.Insert(aSkiRun);
 
                     //Display a message to the user that the record was inserted.
                     ConsoleView.DisplayReset();
@@ -320,45 +157,6 @@ namespace SkiRunRater
         }
 
         
-
-        /// <summary>
-        /// Adds a record to the data source with information provided by the user using the JSON repository
-        /// </summary>
-        /// <param name="skiRunRepository"></param>
-        private static void AddSkiRun(SkiRunRepositoryJSON[] repoArray)
-        {
-            SkiRunRepositoryJSON skiRunRepository = new SkiRunRepositoryJSON();
-            //Variable Declarations.
-            SkiRun aSkiRun = new SkiRun();
-
-            ConsoleView.DisplayReset();
-
-            //Get the ID, Name, and Vertical feet from the user.
-            aSkiRun.ID = ConsoleView.GetIntegerFromUser("Enter the ID for the Ski Run: ");
-            aSkiRun.Name = ConsoleView.GetUserResponse("Enter the name for the Ski Run: ");
-            aSkiRun.Vertical = ConsoleView.GetIntegerFromUser("Enter the vertical (in feet) for the Ski Run: ");
-            using (skiRunRepository)
-            {
-                //Insert the new ski run.
-                try
-                {
-                    //Insert the new record.
-                    skiRunRepository.InsertSkiRun(aSkiRun);
-
-                    //Display a message to the user that the record was inserted.
-                    ConsoleView.DisplayReset();
-                    ConsoleView.DisplayMessage($"The information for the {aSkiRun.Name} ski run has been saved.");
-                    ConsoleView.DisplayContinuePrompt();
-                }
-                catch (Exception ex)
-                {
-                    //Display the error message for the error that occurred.
-                    CatchIOExceptions(ex);
-                }
-            }
-                
-        }
-
         /// <summary>
         /// Handles errors for File I/O operations.
         /// </summary>
@@ -409,20 +207,20 @@ namespace SkiRunRater
         }
 
         /// <summary>
-        /// Deletes a record from the data source using the ID value entered by the user using the CSV repository
+        /// Deletes a record from the data source using the ID value entered by the user 
         /// </summary>
         /// <param name="skiRunRepository"></param>
         /// <param name="skiRuns"></param>
-        private static void DeleteSkiRun(SkiRunRepositoryCSV[] repoArray)
+        private static void DeleteSkiRun()
         {
-            SkiRunRepositoryCSV skiRunRepository = new SkiRunRepositoryCSV();
-            List<SkiRun> skiRuns = skiRunRepository.GetSkiAllRuns();
+            SkiRunBusiness skiRunBusiness = new SkiRunBusiness(skiRunRepository);
+            List<SkiRun> skiRuns = skiRunRepository.SelectAll();
             //Variable declarations.
             int skiRunID = 0;
 
             //reset display
             ConsoleView.DisplayReset();
-            using (skiRunRepository)
+            using (skiRunBusiness)
             {
                 //Display all ski runs.
                 ConsoleView.DisplayAllSkiRuns(skiRuns, false);
@@ -435,50 +233,7 @@ namespace SkiRunRater
                 try
                 {
                     //Delete the ski run entered.
-                    skiRunRepository.DeleteSkiRun(skiRunID);
-
-                    //Display a message to the user that the ski run has been deleted.
-                    ConsoleView.DisplayReset();
-                    ConsoleView.DisplayMessage($"Ski Run ID: {skiRunID} had been deleted.");
-                    ConsoleView.DisplayContinuePrompt();
-                }
-                catch (Exception ex)
-                {
-                    //Display the error message for the error that occurred.
-                    CatchIOExceptions(ex);
-                }
-            }
-                
-        }
-
-        /// <summary>
-        /// Deletes a record from the data source using the ID value entered by the user using the XML_DS repository
-        /// </summary>
-        /// <param name="skiRunRepository"></param>
-        /// <param name="skiRuns"></param>
-        private static void DeleteSkiRun(SkiRunRepositoryXML_DS[] repoArray)
-        {
-            SkiRunRepositoryXML_DS skiRunRepository = new SkiRunRepositoryXML_DS();
-            List<SkiRun> skiRuns = skiRunRepository.SelectAllRuns();
-            //Variable declarations.
-            int skiRunID = 0;
-
-            //reset display
-            ConsoleView.DisplayReset();
-            using (skiRunRepository)
-            {
-                //Display all ski runs.
-                ConsoleView.DisplayAllSkiRuns(skiRuns, false);
-                Console.WriteLine();
-                Console.WriteLine();
-
-                //Get the ID for the ski run from the user.
-                skiRunID = ConsoleView.GetIntegerFromUser("Enter Ski Run ID to delete: ");
-
-                try
-                {
-                    //Delete the ski run entered.
-                    skiRunRepository.DeleteSkiRun(skiRunID);
+                    skiRunRepository.Delete(skiRunID);
 
                     //Display a message to the user that the ski run has been deleted.
                     ConsoleView.DisplayReset();
@@ -495,88 +250,22 @@ namespace SkiRunRater
         }
 
         
-
         /// <summary>
-        /// Deletes a record from the data source using the ID value entered by the user using the JSON repository
+        /// Displays a list of all ski runs
         /// </summary>
         /// <param name="skiRunRepository"></param>
-        /// <param name="skiRuns"></param>
-        private static void DeleteSkiRun(SkiRunRepositoryJSON[] repoArray)
+        private static void DisplaySkiRunDetail()
         {
-            SkiRunRepositoryJSON skiRunRepository = new SkiRunRepositoryJSON();
-            List<SkiRun> skiRuns = skiRunRepository.GetSkiAllRuns();
-            //Variable declarations.
-            int skiRunID = 0;
-
-            //reset display
-            ConsoleView.DisplayReset();
-            using (skiRunRepository)
-            {
-                //Display all ski runs.
-                ConsoleView.DisplayAllSkiRuns(skiRuns, false);
-                Console.WriteLine();
-                Console.WriteLine();
-
-                //Get the ID for the ski run from the user.
-                skiRunID = ConsoleView.GetIntegerFromUser("Enter Ski Run ID to delete: ");
-
-                try
-                {
-                    //Delete the ski run entered.
-                    skiRunRepository.DeleteSkiRun(skiRunID);
-
-                    //Display a message to the user that the ski run has been deleted.
-                    ConsoleView.DisplayReset();
-                    ConsoleView.DisplayMessage($"Ski Run ID: {skiRunID} had been deleted.");
-                    ConsoleView.DisplayContinuePrompt();
-                }
-                catch (Exception ex)
-                {
-                    //Display the error message for the error that occurred.
-                    CatchIOExceptions(ex);
-                }
-            }
-                
-        }
-
-        /// <summary>
-        /// Displays a list of all ski runs using the CSV repository.
-        /// </summary>
-        /// <param name="skiRunRepository"></param>
-        private static void DisplaySkiRunDetail(SkiRunRepositoryCSV[] repoArray)
-        {
-            SkiRunRepositoryCSV skiRunRepository = new SkiRunRepositoryCSV();
+            SkiRunBusiness skiRunBusiness = new SkiRunBusiness(skiRunRepository);
 
             ConsoleView.DisplayReset();
             //ConsoleView.DisplayHeader("Display Ski Run Information");
-            using (skiRunRepository)
+            using (skiRunBusiness)
             {
                 try
                 {
                     //Display the ski run information on the screen.
-                    ConsoleView.DisplaySkiRunDetail(skiRunRepository.GetSkiRunByID(ConsoleView.GetIntegerFromUser("Enter the ID for the Ski Run: ")));
-                    ConsoleView.DisplayContinuePrompt();
-                }
-                catch (Exception ex)
-                {
-                    ConsoleView.DisplayErrorMessage(ex.Message);
-                    ConsoleView.DisplayContinuePrompt();
-                }
-            }
-                
-        }
-
-        private static void DisplaySkiRunDetail(SkiRunRepositoryXML_DS[] repoArray)
-        {
-            SkiRunRepositoryXML_DS skiRunRepository = new SkiRunRepositoryXML_DS();
-            ConsoleView.DisplayReset();
-            //ConsoleView.DisplayHeader("Display Ski Run Information");
-            using (skiRunRepository)
-            {
-                try
-                {
-                    //Display the ski run information on the screen.
-                    ConsoleView.DisplaySkiRunDetail(skiRunRepository.SelectByID(ConsoleView.GetIntegerFromUser("Enter the ID for the Ski Run: ")));
+                    ConsoleView.DisplaySkiRunDetail(skiRunRepository.SelectById(ConsoleView.GetIntegerFromUser("Enter the ID for the Ski Run: ")));
                     ConsoleView.DisplayContinuePrompt();
                 }
                 catch (Exception ex)
@@ -589,61 +278,17 @@ namespace SkiRunRater
         }
 
         
-
         /// <summary>
-        /// Displays a list of all ski runs using the JSON repository.
+        /// Allows the user to select a list of ski runs based on the vertical value 
         /// </summary>
         /// <param name="skiRunRepository"></param>
-        private static void DisplaySkiRunDetail(SkiRunRepositoryJSON[] repoArray)
+        private static void QuerySkiRunsByVertical()
         {
-            SkiRunRepositoryJSON skiRunRepository = new SkiRunRepositoryJSON();
-            ConsoleView.DisplayReset();
-            //ConsoleView.DisplayHeader("Display Ski Run Information");
-            using (skiRunRepository)
-            {
-                try
-                {
-                    //Display the ski run information on the screen.
-                    ConsoleView.DisplaySkiRunDetail(skiRunRepository.GetSkiRunByID(ConsoleView.GetIntegerFromUser("Enter the ID for the Ski Run: ")));
-                    ConsoleView.DisplayContinuePrompt();
-                }
-                catch (Exception ex)
-                {
-                    ConsoleView.DisplayErrorMessage(ex.Message);
-                    ConsoleView.DisplayContinuePrompt();
-                }
-            }
-                
-        }
-
-        /// <summary>
-        /// Allows the user to select a list of ski runs based on the vertical value for the CSV repository.
-        /// </summary>
-        /// <param name="skiRunRepository"></param>
-        private static void QuerySkiRunsByVertical(SkiRunRepositoryCSV[] repoArray)
-        {
-            SkiRunRepositoryCSV skiRunRepository = new SkiRunRepositoryCSV();
+            SkiRunBusiness skiRunBusiness = new SkiRunBusiness(skiRunRepository);
             int[] minMaxValues = ConsoleView.DisplayGetSkiRunQuery();
-            using (skiRunRepository)
+            using (skiRunBusiness)
             {
-                List<SkiRun> results = skiRunRepository.QueryByVertical(minMaxValues[0], minMaxValues[1]);
-                ConsoleView.DisplayQueryResults(results);
-            }
-                
-            ConsoleView.DisplayContinuePrompt();
-        }
-
-        /// <summary>
-        /// Allows the user to select a list of ski runs based on the vertical value for the XML_DS repository.
-        /// </summary>
-        /// <param name="skiRunRepository"></param>
-        private static void QuerySkiRunsByVertical(SkiRunRepositoryXML_DS[] repoArray)
-        {
-            SkiRunRepositoryXML_DS skiRunRepository = new SkiRunRepositoryXML_DS();
-            int[] minMaxValues = ConsoleView.DisplayGetSkiRunQuery();
-            using (skiRunRepository)
-            {
-                List<SkiRun> results = skiRunRepository.QueryByVertical(minMaxValues[0], minMaxValues[1]);
+                List<SkiRun> results = skiRunBusiness.QueryByVertical(minMaxValues[0], minMaxValues[1]);
                 ConsoleView.DisplayQueryResults(results);
             }
                 
@@ -652,34 +297,17 @@ namespace SkiRunRater
 
         
         /// <summary>
-        /// Allows the user to select a list of ski runs based on the vertical value for the JSON repository.
-        /// </summary>
-        /// <param name="skiRunRepository"></param>
-        private static void QuerySkiRunsByVertical(SkiRunRepositoryJSON[] repoArray)
-        {
-            SkiRunRepositoryJSON skiRunRepository = new SkiRunRepositoryJSON();
-            int[] minMaxValues = ConsoleView.DisplayGetSkiRunQuery();
-            using (skiRunRepository)
-            {
-                List<SkiRun> results = skiRunRepository.QueryByVertical(minMaxValues[0], minMaxValues[1]);
-                ConsoleView.DisplayQueryResults(results);
-            }
-                
-            ConsoleView.DisplayContinuePrompt();
-        }
-
-        /// <summary>
-        /// Updates a specific ski run's information in the data source with data entered by the user for the CSV repository
+        /// Updates a specific ski run's information in the data source with data entered by the user
         /// </summary>
         /// <param name="skiRunRepository"></param>
         /// <param name="skiRuns"></param>
-        private static void UpdateSkiRun(SkiRunRepositoryCSV[] repoArray)
+        private static void UpdateSkiRun()
         {
-            SkiRunRepositoryCSV skiRunRepository = new SkiRunRepositoryCSV();
+            SkiRunBusiness skiRunBusiness = new SkiRunBusiness(skiRunRepository);
             SkiRun aSkiRun = new SkiRun();
-            using (skiRunRepository)
+            using (skiRunBusiness)
             {
-                List<SkiRun> skiRuns = skiRunRepository.GetSkiAllRuns();
+                List<SkiRun> skiRuns = skiRunRepository.SelectAll();
                 //Variable Declarations.
                 
 
@@ -695,7 +323,7 @@ namespace SkiRunRater
                 {
                     //Display the ski run information on the screen.
                     //ConsoleView.DisplaySkiRunDetail(skiRunRepository.GetSkiRunByID(ConsoleView.GetIntegerFromUser("Enter the ID for the Ski Run: ")));
-                    aSkiRun = skiRunRepository.GetSkiRunByID(ConsoleView.GetIntegerFromUser("Enter the ID for the Ski Run: "));
+                    aSkiRun = skiRunRepository.SelectById(ConsoleView.GetIntegerFromUser("Enter the ID for the Ski Run: "));
                     ConsoleView.DisplaySkiRunDetail(aSkiRun);
                 }
                 catch (Exception ex)
@@ -715,7 +343,7 @@ namespace SkiRunRater
                 try
                 {
                     //Update the ski run information.
-                    skiRunRepository.UpdateSkiRun(aSkiRun);
+                    skiRunRepository.Update(aSkiRun);
 
                     //Display a message to the user that the record was updated.
                     ConsoleView.DisplayReset();
@@ -734,140 +362,10 @@ namespace SkiRunRater
             
         }
 
-        /// <summary>
-        /// Updates a specific ski run's information in the data source with data entered by the user for the XML_DS repository
-        /// </summary>
-        /// <param name="skiRunRepository"></param>
-        /// <param name="skiRuns"></param>
-        private static void UpdateSkiRun(SkiRunRepositoryXML_DS[] repoArray)
-        {
-            SkiRunRepositoryXML_DS skiRunRepository = new SkiRunRepositoryXML_DS();
-            SkiRun aSkiRun = new SkiRun();
-            using (skiRunRepository)
-            {
-                List<SkiRun> skiRuns = skiRunRepository.SelectAllRuns();
-                //Variable Declarations.
-
-
-                ConsoleView.DisplayReset();
-
-                //Display all ski runs.
-                ConsoleView.DisplayAllSkiRuns(skiRuns, false);
-                Console.WriteLine();
-                Console.WriteLine();
-
-                //Get the information for the ski run to be updated and display it on the screen.
-                try
-                {
-                    //Display the ski run information on the screen.
-                    //ConsoleView.DisplaySkiRunDetail(skiRunRepository.GetSkiRunByID(ConsoleView.GetIntegerFromUser("Enter the ID for the Ski Run: ")));
-                    aSkiRun = skiRunRepository.SelectByID(ConsoleView.GetIntegerFromUser("Enter the ID for the Ski Run: "));
-                    ConsoleView.DisplaySkiRunDetail(aSkiRun);
-                }
-                catch (Exception ex)
-                {
-                    //Display the error message for the error that occurred.
-                    CatchIOExceptions(ex);
-                    return;
-                }
-
-                //Get the new Name and Vertical feet from the user.
-                Console.WriteLine();
-                Console.WriteLine();
-                aSkiRun.Name = ConsoleView.GetUserResponse("Enter the new name for the Ski Run: ");
-                aSkiRun.Vertical = ConsoleView.GetIntegerFromUser("Enter the new vertical (in feet) for the Ski Run: ");
-
-                //Update the ski run.
-                try
-                {
-                    //Update the ski run information.
-                    skiRunRepository.UpdateSkiRun(aSkiRun);
-
-                    //Display a message to the user that the record was updated.
-                    ConsoleView.DisplayReset();
-                    ConsoleView.DisplayMessage($"The information for the {aSkiRun.Name} ski run has been updated.");
-                    ConsoleView.DisplayContinuePrompt();
-                }
-                catch (Exception ex)
-                {
-                    //Display the error message for the error that occurred.
-                    CatchIOExceptions(ex);
-                    return;
-                }
-            }
-                
+                   
 
             
-
-           
-        }
-
         
-        /// <summary>
-        /// Updates a specific ski run's information in the data source with data entered by the user for the JSON repository
-        /// </summary>
-        /// <param name="skiRunRepository"></param>
-        /// <param name="skiRuns"></param>
-        private static void UpdateSkiRun(SkiRunRepositoryJSON[] repoArray)
-        {
-            SkiRunRepositoryJSON skiRunRepository = new SkiRunRepositoryJSON();
-            SkiRun aSkiRun = new SkiRun();
-            using (skiRunRepository)
-            {
-                List<SkiRun> skiRuns = skiRunRepository.GetSkiAllRuns();
-                //Variable Declarations.
-
-
-                ConsoleView.DisplayReset();
-
-                //Display all ski runs.
-                ConsoleView.DisplayAllSkiRuns(skiRuns, false);
-                Console.WriteLine();
-                Console.WriteLine();
-
-                //Get the information for the ski run to be updated and display it on the screen.
-                try
-                {
-                    //Display the ski run information on the screen.
-                    //ConsoleView.DisplaySkiRunDetail(skiRunRepository.GetSkiRunByID(ConsoleView.GetIntegerFromUser("Enter the ID for the Ski Run: ")));
-                    aSkiRun = skiRunRepository.GetSkiRunByID(ConsoleView.GetIntegerFromUser("Enter the ID for the Ski Run: "));
-                    ConsoleView.DisplaySkiRunDetail(aSkiRun);
-                }
-                catch (Exception ex)
-                {
-                    //Display the error message for the error that occurred.
-                    CatchIOExceptions(ex);
-                    return;
-                }
-
-                //Get the new Name and Vertical feet from the user.
-                Console.WriteLine();
-                Console.WriteLine();
-                aSkiRun.Name = ConsoleView.GetUserResponse("Enter the new name for the Ski Run: ");
-                aSkiRun.Vertical = ConsoleView.GetIntegerFromUser("Enter the new vertical (in feet) for the Ski Run: ");
-
-                //Update the ski run.
-                try
-                {
-                    //Update the ski run information.
-                    skiRunRepository.UpdateSkiRun(aSkiRun);
-
-                    //Display a message to the user that the record was updated.
-                    ConsoleView.DisplayReset();
-                    ConsoleView.DisplayMessage($"The information for the {aSkiRun.Name} ski run has been updated.");
-                    ConsoleView.DisplayContinuePrompt();
-                }
-                catch (Exception ex)
-                {
-                    //Display the error message for the error that occurred.
-                    CatchIOExceptions(ex);
-                    return;
-                }
-            }
-                
-
-            
-        }
 
 
         #endregion

@@ -62,20 +62,8 @@ namespace SkiRunRater
                     break;
             }
 
-            
-            // instantiate the controller based on persistence choice
-            if (DataSettings.dataFilePath == "Data\\Data.csv")
-            {
-                Controller csvAppController = new Controller(csvArray);
-            }
-            else if (DataSettings.dataFilePath == "Data\\Data.xml")
-            {
-                Controller xmlAppContoller = new Controller(xmlArray);
-            }
-            else if (DataSettings.dataFilePath == "Data\\Data.json")
-            {
-                Controller jsonAppContoller = new Controller(jsonArray);
-            }
+
+            Controller controller = new Controller();
             
         }
     }

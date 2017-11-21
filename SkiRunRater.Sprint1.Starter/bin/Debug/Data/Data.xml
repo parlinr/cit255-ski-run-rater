@@ -16,23 +16,13 @@
 		<Vertical>325</Vertical>
 	</SkiRun>
 	<SkiRun>
-		<ID>5</ID>
-		<Name>sfgsdfg</Name>
+		<ID>8</ID>
+		<Name>Test</Name>
 		<Vertical>432</Vertical>
 	</SkiRun>
 	<SkiRun>
-		<ID>6</ID>
-		<Name>stgd</Name>
-		<Vertical>432</Vertical>
-	</SkiRun>
-	<SkiRun>
-		<ID>7</ID>
-		<Name>gfddfg</Name>
-		<Vertical>452452</Vertical>
-	</SkiRun>
-	<SkiRun>
-		<ID>2</ID>
-		<Name>fdgd</Name>
-		<Vertical>22</Vertical>
+		<ID>9</ID>
+		<Name>Test2</Name>
+		<Vertical>324</Vertical>
 	</SkiRun>
 </SkiRuns>
