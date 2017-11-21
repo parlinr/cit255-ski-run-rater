@@ -44,7 +44,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BusinessLayer\SkiRunBusiness.cs" />
     <Compile Include="Controller\Controller.cs" />
+    <Compile Include="DAL\ISkiRunRepository.cs" />
     <Compile Include="DAL\SkiRunRepositoryJSON.cs" />
     <Compile Include="DAL\SkiRunRepositoryXML_DS.cs" />
     <Compile Include="Data\DataSettings.cs" />
