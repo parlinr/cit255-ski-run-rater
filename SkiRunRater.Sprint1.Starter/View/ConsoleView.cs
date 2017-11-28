@@ -268,9 +268,10 @@ namespace SkiRunRater
                 Console.WriteLine("(1) CSV file");
                 Console.WriteLine("(2) XML file");
                 Console.WriteLine("(3) JSON file");
+                Console.WriteLine("(4) SQL Database");
                 Console.WriteLine();
                 userResponse = Console.ReadLine();
-                if (userResponse != "1" && userResponse != "2" && userResponse != "3")
+                if (userResponse != "1" && userResponse != "2" && userResponse != "3" && userResponse!="4")
                 {
                     DisplayErrorMessage("You did not enter a valid response. Press any key to try again.");
                     Console.ReadKey(true);

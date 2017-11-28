@@ -58,6 +58,9 @@ namespace SkiRunRater
                     }
                     
                     break;
+                case "4":
+                    DataSettings.dataFilePath = DataSettings.dataFilePathSQL;
+                    break;
                 default:
                     break;
             }

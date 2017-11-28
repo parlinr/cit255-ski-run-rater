@@ -13,5 +13,6 @@ namespace SkiRunRater
         public const string dataFilePathCSV = "Data\\Data.csv";
         public const string dataFilePathXML = "Data\\Data.xml";
         public const string dataFilePathJSON = "Data\\Data.json";
+        public const string dataFilePathSQL = "Data\\SkiRunRater.mdf";
     }
 }

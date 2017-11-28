@@ -33,9 +33,13 @@ namespace SkiRunRater
             {
                 skiRunRepository = new SkiRunRepositoryXML_DS();
             }
-            else
+            else if (DataSettings.dataFilePath == "Data\\Data.json")
             {
                 skiRunRepository = new SkiRunRepositoryJSON();
+            }
+            else
+            {
+                skiRunRepository = new SkiRunRepositorySQL();
             }
             
             ApplicationControl();

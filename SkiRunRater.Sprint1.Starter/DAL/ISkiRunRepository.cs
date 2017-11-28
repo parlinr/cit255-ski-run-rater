@@ -13,7 +13,7 @@ namespace SkiRunRater
         void Insert(SkiRun obj);
         void Update(SkiRun obj);
         void Delete(int id);
-        void Save();
+        //void Save();
 
     }
 }
